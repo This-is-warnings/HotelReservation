@@ -1,0 +1,62 @@
+<app-header>
+
+  <form #f="ngForm" (ngSubmit)="onSubmit()" novalidate>
+
+    <div class="flex flex-column align-content-start justify-content-center">
+
+      <h4 class="mt-1 mb-1">Number*</h4>
+      <div class="p-field">
+        <input [(ngModel)]="editRoom.number" name="number" #number="ngModel" required [min]="1" type="number" pInputText>
+        <div *ngIf="number.invalid && (number.dirty || number.touched)"
+             class="p-error">
+          <div *ngIf="number.errors?.min">
+            number < 1
+          </div>
+          <div *ngIf="number.errors?.required">
+            EMPTY
+          </div>
+        </div>
+      </div>
+
+      <h4 class="mt-1 mb-1">Number of rooms*</h4>
+      <div class="p-field">
+        <input [(ngModel)]="editRoom.numberOfRooms" name="numberOfRooms" #numberOfRooms="ngModel" required [min]="1" [max]="5" type="number" pInputText>
+        <div *ngIf="numberOfRooms.invalid && (numberOfRooms.dirty || numberOfRooms.touched)"
+             class="p-error">
+          <div *ngIf="numberOfRooms.errors?.min">
+            number < 1
+          </div>
+          <div *ngIf="numberOfRooms.errors?.max">
+            number > 5
+          </div>
+          <div *ngIf="numberOfRooms.errors?.required">
+            EMPTY
+          </div>
+        </div>
+      </div>
+
+      <h4 class="mt-1 mb-1">Room class*</h4>
+      <div class="p-field">
+        <p-selectButton required="true" #roomClass="ngModel" name="roomClass" [options]="allClasses" [(ngModel)]="editRoom.roomClass" optionLabel="label" optionValue="value"></p-selectButton>
+      </div>
+
+      <h4 class="mt-1 mb-1">Price per day*</h4>
+      <div class="p-field">
+        <input [(ngModel)]="editRoom.pricePerDay" ngModel name="pricePerDay" #pricePerDay="ngModel" required [min]="1" type="number" pInputText>
+        <div *ngIf="pricePerDay.invalid && (pricePerDay.dirty || pricePerDay.touched)"
+             class="p-error">
+          <div *ngIf="pricePerDay.errors?.min">
+            number < 1
+          </div>
+          <div *ngIf="pricePerDay.errors?.required">
+            EMPTY
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <button [disabled]="!f.valid" class="mt-4 w-min" pButton label="add"></button>
+  </form>
+
+</app-header>

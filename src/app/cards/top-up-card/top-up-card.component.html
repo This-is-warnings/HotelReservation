@@ -1,0 +1,8 @@
+<app-header>
+  <form #f="ngForm" (ngSubmit)="onSubmit(f)" novalidate>
+    <h2>Введите сумму, на которую хотите пополнить баланс</h2>
+    <input ngModel name="sum" required type="number" pInputText><br>
+    <button [disabled]="!f.valid" pButton label="add"></button>
+  </form>
+</app-header>
+

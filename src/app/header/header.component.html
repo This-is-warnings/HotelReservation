@@ -1,0 +1,15 @@
+<div style="min-height: 95.5vh;" class="flex flex-row align-items-stretch justify-content-center">
+  <div class="left flex-1"></div>
+
+  <div class="center relative" style="flex:3;">
+    <div>
+      <div style="text-align: center"><h1>My web application 💩</h1></div>
+      <button (click)="exit()" style="position: absolute;right: 5px;top: 5px;" pButton label="exit"></button>
+      <p-tabMenu [model]="items"></p-tabMenu>
+    </div>
+    <ng-content></ng-content>
+  </div>
+
+  <div class="right flex-1"></div>
+
+</div>

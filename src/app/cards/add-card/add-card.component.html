@@ -1,0 +1,8 @@
+<app-header>
+  <form #f="ngForm" (ngSubmit)="onSubmit(f)" novalidate>
+    <h2>Введите номер карты в формате 1111 2222 3333 4444</h2>
+    <input ngModel name="number" required type="text" pattern="[0-9][0-9][0-9][0-9] [0-9][0-9][0-9][0-9] [0-9][0-9][0-9][0-9] [0-9][0-9][0-9][0-9]" pInputText><br>
+    <button [disabled]="!f.valid" pButton label="add"></button>
+
+  </form>
+</app-header>

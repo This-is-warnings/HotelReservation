@@ -1,0 +1,61 @@
+<app-header>
+
+  <p-selectButton *ngIf="!isManager" name="selection" [options]="allSelect" [(ngModel)]="select" (onChange)="changeSelect()" optionLabel="label" optionValue="value"></p-selectButton>
+   <p-table [value]="reservedRooms" responsiveLayout="scroll">
+    <ng-template pTemplate="header">
+      <tr>
+        <th *ngIf="isManager">user id</th>
+        <th>price</th>
+        <th>startDate</th>
+        <th>endDate</th>
+        <th>status</th>
+        <th>room</th>
+        <th></th>
+        <th *ngIf="!isManager"></th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-reservedRoom>
+      <tr>
+        <td *ngIf="isManager">{{reservedRoom.user.id}}</td>
+        <td>{{reservedRoom.price}}</td>
+        <td>{{reservedRoom.startDate}}</td>
+        <td>{{reservedRoom.endDate}}</td>
+        <td>{{reservedRoom.status}}</td>
+        <td>Room</td>
+        <td>
+          <p-toast></p-toast>
+          <p-confirmPopup></p-confirmPopup>
+          <p-button *ngIf="reservedRoom.status != 'cancelled' && !isManager" (click)="confirmCancelled($event, reservedRoom.id)" label = "cancel"></p-button>
+          <p-button *ngIf="reservedRoom.status == 'cancelled' && isManager" (click)="confirmDelete($event, reservedRoom.id)" label = "delete"></p-button>
+        </td>
+        <td *ngIf="!isManager">
+          <p-button *ngIf="reservedRoom.status == 'unpaid'" (click)="showMaximizableDialog(reservedRoom.price, reservedRoom.id)" label="to pay"></p-button>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</app-header>
+
+<p-dialog header="Выберите картку" [(visible)]="displayMaximizable"  [modal]="true" [style]="{width: '50vw'}">
+
+    <p-table [value]="userCards" selectionMode="single" [(selection)]="selectedCard" dataKey="number" >
+      <ng-template pTemplate="header">
+        <tr>
+          <th>Number</th>
+          <th>Balance</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-card>
+        <tr [pSelectableRowDisabled]="card.balance < reservedRoomPrice" [pSelectableRow]="card">
+          <td *ngIf="card.balance < reservedRoomPrice" style="color: red">{{card.number}}</td>
+          <td *ngIf="card.balance < reservedRoomPrice" style="color: red">{{card.balance}}</td>
+
+          <td *ngIf="card.balance >= reservedRoomPrice">{{card.number}}</td>
+          <td *ngIf="card.balance >= reservedRoomPrice">{{card.balance}}</td>
+        </tr>
+      </ng-template>
+    </p-table>
+
+    <p-button (click)="selected()" label="Выбрать"></p-button>
+
+</p-dialog>

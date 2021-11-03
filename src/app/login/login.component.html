@@ -1,0 +1,23 @@
+<div class="flex flex-column mt-8 align-items-center justify-content-center ">
+  <form #f="ngForm" (ngSubmit)="onSubmit(f)" novalidate>
+    <div class="flex flex-column align-content-start justify-content-center border-2 p-5 border-gray-50"
+         style="box-shadow: -10px 0px 5px;border-radius: 50% 20% / 10% 40%;
+         background-color: #bbc2d4 ;">
+      <!--https://i.imgur.com/FPNnL84.jpg)-->
+      <h2 style="text-align: center;color: #bb68c9">Login</h2>
+      <span class="p-float-label">
+            <input class="min-w-full" ngModel name="login" required type="text" id="inputtext1" pInputText>
+            <label for="inputtext1">login</label>
+      </span>
+      <span class="p-float-label mt-4">
+            <p-password [feedback]="false" [toggleMask]="true" name="password" id="inputtext2" ngModel
+                        required></p-password>
+            <label for="inputtext2">password</label>
+      </span>
+      <button class="button mt-4" pButton label="Sign in"></button>
+    </div>
+  </form>
+  <h2 style="color: aquamarine;">{{error}}</h2>
+</div>
+
+Ц

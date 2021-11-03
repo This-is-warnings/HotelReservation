@@ -1,0 +1,45 @@
+<app-header>
+
+  <p-table [value]="requests" responsiveLayout="scroll">
+    <ng-template pTemplate="header">
+      <tr>
+        <th>numberOfRooms</th>
+        <th>roomClass</th>
+        <th>startDate</th>
+        <th>endDate</th>
+        <th>status</th>
+      </tr>
+    </ng-template>
+
+  <ng-template pTemplate="body" let-request>
+    <tr>
+      <td>{{request.numberOfRooms}}</td>
+      <td>{{request.roomClass}}</td>
+      <td>{{request.startDate}}</td>
+      <td>{{request.endDate}}</td>
+      <td>{{request.status}}</td>
+    </tr>
+  </ng-template>
+  </p-table>
+  <h2>Suitable rooms: </h2>
+  <p-table [value]="suitableRooms" selectionMode="single" [(selection)]="selectedRoom" dataKey="number" >
+    <ng-template pTemplate="header">
+      <tr>
+        <th>Number</th>
+        <th>Number of rooms</th>
+        <th>room class</th>
+        <th>price per day</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-room>
+      <tr [pSelectableRow]="room">
+        <td>{{room.number}}</td>
+        <td>{{room.numberOfRooms}}</td>
+        <td>{{room.roomClass}}</td>
+        <td>{{room.pricePerDay}}</td>
+      </tr>
+    </ng-template>
+  </p-table>
+
+  <p-button (click)="selected()" label="Выбрать"></p-button>
+</app-header>

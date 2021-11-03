@@ -1,0 +1,57 @@
+<app-header>
+  <form #f="ngForm" (ngSubmit)="onSubmit(f)" novalidate>
+    <div class="flex flex-column align-content-start justify-content-center">
+
+      <h4 class="mt-1 mb-1">Количевство комнат: </h4>
+      <div class="p-field">
+        <input ngModel name="numberOfRooms" #numberOfRooms="ngModel" required max="4" min="1" type="number" pInputText>
+        <div *ngIf="numberOfRooms.invalid && (numberOfRooms.dirty || numberOfRooms.touched)"
+             class="p-error">
+          <div *ngIf="numberOfRooms.errors?.min">
+            Выберите больше комнат
+          </div>
+          <div *ngIf="numberOfRooms.errors?.max">
+            Нет номер с таким количевством комнат
+          </div>
+          <div *ngIf="numberOfRooms.errors?.required">
+            Пустое поле
+          </div>
+        </div>
+      </div>
+
+      <h4 class="mt-1 mb-1">Класс номера</h4>
+      <div class="p-field">
+        <p-selectButton name="roomClass" [options]="allClasses" [(ngModel)]="value1" optionLabel="label" optionValue="value"></p-selectButton>
+      </div>
+
+
+      <h4 class="mt-1 mb-1">Дата заселения</h4>
+      <div class="p-field">
+        <p-calendar [required]="true" ngModel name="startDate" #startDate="ngModel" [yearNavigator]="true"
+                    [monthNavigator]="true" dateFormat="yy-MM-dd" [minDate]="today">
+        </p-calendar>
+        <div *ngIf="startDate.invalid && (startDate.dirty || startDate.touched)"
+             class="p-error">
+          <div *ngIf="startDate.errors?.required">
+            BAD DATE
+          </div>
+        </div>
+      </div>
+
+      <h4 class="mt-1 mb-1">Дата выселения</h4>
+      <div class="p-field">
+        <p-calendar [required]="true" ngModel name="endDate" #endDate="ngModel" [yearNavigator]="true"
+                    [monthNavigator]="true" dateFormat="yy-MM-dd" [minDate]="today">
+        </p-calendar>
+        <div *ngIf="endDate.invalid && (endDate.dirty || endDate.touched)"
+             class="p-error">
+          <div *ngIf="endDate.errors?.required">
+            BAD DATE
+          </div>
+        </div>
+      </div>
+      <button [disabled]="!f.valid" class="mt-4 w-min" pButton label="add"></button>
+    </div>
+  </form>
+
+</app-header>

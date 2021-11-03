@@ -1,0 +1,34 @@
+<app-header>
+
+  <p-selectButton name="selection" [options]="allSelect" [(ngModel)]="select" (onChange)="changeSelect()" optionLabel="label" optionValue="value"></p-selectButton>
+  <p-table [value]="requests" responsiveLayout="scroll">
+    <ng-template pTemplate="header">
+      <tr>
+        <th *ngIf="isManager">user id</th>
+        <th>numberOfRooms</th>
+        <th>roomClass</th>
+        <th>startDate</th>
+        <th>endDate</th>
+        <th>status</th>
+        <th><button *ngIf="!isManager" (click)="add()" icon="pi pi-plus" pButton></button></th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-request>
+      <tr>
+        <td *ngIf="isManager">{{request.user.id}}</td>
+        <td>{{request.numberOfRooms}}</td>
+        <td>{{request.roomClass}}</td>
+        <td>{{request.startDate}}</td>
+        <td>{{request.endDate}}</td>
+        <td>{{request.status}}</td>
+        <td>
+          <p-toast></p-toast>
+          <p-confirmPopup></p-confirmPopup>
+          <button *ngIf="request.status != 'cancelled' && !isManager" (click)="confirmCancelled($event, request.id)" pButton icon="pi pi-times-circle"></button>
+          <button *ngIf="request.status != 'cancelled' && isManager" (click)="toViewing(request.id)" pButton icon="pi pi-globe"></button>
+          <button *ngIf="request.status == 'cancelled'" (click)="confirmDelete($event, request.id)" pButton icon="pi pi-trash"></button>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</app-header>
