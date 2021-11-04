@@ -40,7 +40,7 @@
 
       <h4 class="mt-1 mb-1">Дата выселения</h4>
       <div class="p-field">
-        <p-calendar [required]="true" ngModel name="endDate" #endDate="ngModel" [yearNavigator]="true"
+        <p-calendar (onSelect)="checkDateDifError(startDate,endDate)" [required]="true" ngModel name="endDate" #endDate="ngModel" [yearNavigator]="true"
                     [monthNavigator]="true" dateFormat="yy-MM-dd" [minDate]="today">
         </p-calendar>
         <div *ngIf="endDate.invalid && (endDate.dirty || endDate.touched)"
@@ -49,8 +49,12 @@
             BAD DATE
           </div>
         </div>
+        <div *ngIf="errorDateDiff"
+             class="p-error">
+            Дата выселения должна быть позже даты заселения
+        </div>
       </div>
-      <button [disabled]="!f.valid" class="mt-4 w-min" pButton label="add"></button>
+      <button [disabled]="!f.valid || errorDateDiff" class="mt-4 w-min" pButton label="add"></button>
     </div>
   </form>
 

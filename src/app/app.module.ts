@@ -33,6 +33,10 @@ import {RoomsComponent} from './rooms/rooms.component';
 import {AddRoomComponent} from './rooms/add-room/add-room.component';
 import {EditRoomComponent} from './rooms/edit-room/edit-room.component';
 import {ViewingRequestComponent} from './requests/viewing-request/viewing-request.component';
+import {UsersComponent} from './users/users.component';
+import {AddUserComponent} from './users/add-user/add-user.component';
+import {EditUserComponent} from './users/edit-user/edit-user.component';
+import {AuthGuard} from "./guards/auth.guard";
 
 
 @NgModule({
@@ -51,23 +55,33 @@ import {ViewingRequestComponent} from './requests/viewing-request/viewing-reques
     AddRoomComponent,
     EditRoomComponent,
     ViewingRequestComponent,
+    UsersComponent,
+    AddUserComponent,
+    EditUserComponent,
   ],
   imports: [
     BrowserModule,
     RouterModule.forRoot([
-      {path: '', redirectTo: '/login', pathMatch: 'full'},
-      {path: 'login', component: LoginComponent},
-      {path: 'home', component: HomeComponent},
-      {path: 'cards', component: CardsComponent},
-      {path: 'requests', component: RequestsComponent},
-      {path: 'reservedRooms', component: ReservedRoomsComponent},
-      {path: 'cards/add', component: AddCardComponent},
-      {path: 'cards/:id/topUp', component: TopUpCardComponent},
-      {path: 'requests/add', component: AddRequestComponent},
-      {path: 'rooms', component: RoomsComponent},
-      {path: 'rooms/add', component: AddRoomComponent},
-      {path: 'rooms/edit/:id', component: EditRoomComponent},
-      {path: 'requests/:id/viewing', component: ViewingRequestComponent}
+      {
+        path: '', canActivate: [AuthGuard], children: [
+          {path:'', pathMatch: 'full', redirectTo: 'login' },
+          {path: 'login', component: LoginComponent},
+          {path: 'home', component: HomeComponent},
+          {path: 'cards', component: CardsComponent},
+          {path: 'requests', component: RequestsComponent},
+          {path: 'reservedRooms', component: ReservedRoomsComponent},
+          {path: 'cards/add', component: AddCardComponent},
+          {path: 'cards/:id/topUp', component: TopUpCardComponent},
+          {path: 'requests/add', component: AddRequestComponent},
+          {path: 'rooms', component: RoomsComponent},
+          {path: 'rooms/add', component: AddRoomComponent},
+          {path: 'rooms/edit/:id', component: EditRoomComponent},
+          {path: 'requests/:id/viewing', component: ViewingRequestComponent},
+          {path: 'users', component: UsersComponent},
+          {path: 'users/edit/:id', component: EditUserComponent},
+          {path: 'users/add', component: AddUserComponent}
+        ]
+      }
     ]),
     FormsModule,
     ReactiveFormsModule,
@@ -86,7 +100,7 @@ import {ViewingRequestComponent} from './requests/viewing-request/viewing-reques
     SelectButtonModule,
     DialogModule
   ],
-  providers: [TokenStorageService, AuthService, CardsService, ConfirmationService, MessageService],
+  providers: [AuthGuard, TokenStorageService, AuthService, CardsService, ConfirmationService, MessageService],
   bootstrap: [AppComponent]
 })
 export class AppModule {

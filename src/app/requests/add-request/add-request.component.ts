@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {NgForm} from "@angular/forms";
+import {NgForm, NgModel} from "@angular/forms";
 import {Request} from "../../domains/request";
 import {User} from "../../domains/user";
 import {RequestsService} from "../../services/requests.service";
@@ -18,6 +18,7 @@ export class AddRequestComponent implements OnInit {
   allClasses: any[];
   today: Date = new Date();
   value1: string = "C";
+  errorDateDiff = false;
 
   constructor(private requestService: RequestsService, private route: Router, private messageService: MessageService) {
     this.allClasses = [{label: 'C', value: 'C'}, {label: 'B', value: 'B'},{label: 'A', value: 'A'},{label: 'Luxe', value: 'Luxe'} ];
@@ -35,6 +36,15 @@ export class AddRequestComponent implements OnInit {
         this.messageService.add({severity:'info', summary:'Confirmed', detail:'Add'});
       }, 500);
     });
+  }
+
+  checkDateDifError(startDate1: NgModel, endDate1: NgModel){
+    let startDate = new Date(startDate1.value);
+    let endDate = new Date(endDate1.value);
+
+    let dateDif = ((-1)*Math.floor((Date.UTC(startDate.getFullYear(), startDate.getMonth(), startDate.getDate()) - Date.UTC(endDate.getFullYear(), endDate.getMonth(), endDate.getDate()) ) /(1000 * 60 * 60 * 24)));
+    console.log(dateDif)
+    this.errorDateDiff = dateDif < 1;
   }
 
 }

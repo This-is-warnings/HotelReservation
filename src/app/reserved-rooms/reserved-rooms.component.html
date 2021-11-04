@@ -21,7 +21,7 @@
         <td>{{reservedRoom.startDate}}</td>
         <td>{{reservedRoom.endDate}}</td>
         <td>{{reservedRoom.status}}</td>
-        <td>Room</td>
+        <td><p-button (click)="showRoom(reservedRoom.room.id)" label="Room"></p-button></td>
         <td>
           <p-toast></p-toast>
           <p-confirmPopup></p-confirmPopup>
@@ -57,5 +57,14 @@
     </p-table>
 
     <p-button (click)="selected()" label="Выбрать"></p-button>
+
+</p-dialog>
+
+<p-dialog header="Комната" [(visible)]="displayRoom"  [modal]="true" [style]="{width: '50vw'}">
+
+  <h2>Number: {{showOneRoom.number}}</h2>
+  <h2>Number of rooms: {{showOneRoom.numberOfRooms}}</h2>
+  <h2>Price per day: {{showOneRoom.pricePerDay}}</h2>
+  <h2>Class: {{showOneRoom.roomClass}}</h2>
 
 </p-dialog>

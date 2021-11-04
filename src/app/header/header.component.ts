@@ -26,7 +26,7 @@ export class HeaderComponent implements OnInit {
         this.items.push({
           label: 'Users',
           icon: 'pi pi-fw pi-user',
-          routerLink: '/admin'
+          routerLink: '/users'
         });
 
       }

@@ -6,6 +6,8 @@ import {ReservedRoomsService} from "../services/reserved-rooms.service";
 import {Card} from "../domains/card";
 import {User} from "../domains/user";
 import {ConfirmationService, MessageService} from "primeng/api";
+import {RoomsService} from "../services/rooms.service";
+import {Room} from "../domains/room";
 
 @Component({
   selector: 'app-reserved-rooms',
@@ -26,9 +28,11 @@ export class ReservedRoomsComponent implements OnInit {
   select: string = "All";
 
   isManager: boolean = false;
+  showOneRoom: Room = new Room(0,0,0,'',0);
 
+  displayRoom: boolean = false;
 
-  constructor(private messageService: MessageService, private confirmationService: ConfirmationService, private reservedRoomsService: ReservedRoomsService, private activateRoute: ActivatedRoute, private cardService: CardsService) {
+  constructor(private roomService: RoomsService,private messageService: MessageService, private confirmationService: ConfirmationService, private reservedRoomsService: ReservedRoomsService, private activateRoute: ActivatedRoute, private cardService: CardsService) {
     this.allSelect = [{label: 'All', value: 'All'}, {label: 'paid', value: 'paid'},{label: 'unpaid', value: 'unpaid'},{label: 'cancelled', value: 'cancelled'} ];
 
   }
@@ -60,6 +64,18 @@ export class ReservedRoomsComponent implements OnInit {
     this.displayMaximizable = true;
     this.selectedRoomId = roomId;
   }
+
+  showRoom(id: number){
+    console.log(id);
+    this.roomService.getRoomById(id).subscribe(res=>{
+      console.log(res)
+      this.showOneRoom = res;
+      this.displayRoom = true;
+    })
+
+  }
+
+
 
   confirmDelete(event: Event, id: number) {
     this.confirmationService.confirm({

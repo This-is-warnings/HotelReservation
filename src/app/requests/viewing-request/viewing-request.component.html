@@ -41,5 +41,6 @@
     </ng-template>
   </p-table>
 
-  <p-button (click)="selected()" label="Выбрать"></p-button>
+  <p-button [disabled]="selectedRoom.id == 0" (click)="selected()" label="Выбрать"></p-button>
+  <p-button (click)="rejected()" label="Отклонить"></p-button>
 </app-header>

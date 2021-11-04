@@ -25,6 +25,14 @@ export class RequestsService {
     return this.http.put("http://localhost:8080/requests/"+ id,'cancelled', this.tokenStorage.httpOptions);
   }
 
+  rejectedRequest(id: number): Observable<Object>{
+    return this.http.put("http://localhost:8080/requests/"+ id,'rejected', this.tokenStorage.httpOptions);
+  }
+
+  confirmedRequest(id: number): Observable<Object>{
+    return this.http.put("http://localhost:8080/requests/"+ id,'confirmed', this.tokenStorage.httpOptions);
+  }
+
   deleteRequest(id: number): Observable<Object>{
     return this.http.delete("http://localhost:8080/requests/"+ id, this.tokenStorage.httpOptions);
   }

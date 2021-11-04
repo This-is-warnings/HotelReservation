@@ -24,8 +24,8 @@
         <td>
           <p-toast></p-toast>
           <p-confirmPopup></p-confirmPopup>
-          <button *ngIf="request.status != 'cancelled' && !isManager" (click)="confirmCancelled($event, request.id)" pButton icon="pi pi-times-circle"></button>
-          <button *ngIf="request.status != 'cancelled' && isManager" (click)="toViewing(request.id)" pButton icon="pi pi-globe"></button>
+          <button *ngIf="request.status != 'cancelled' && !isManager && request.status != 'confirmed' && request.status!= 'rejected'" (click)="confirmCancelled($event, request.id)" pButton icon="pi pi-times-circle"></button>
+          <button *ngIf="request.status != 'cancelled' && isManager && request.status != 'confirmed' && request.status!= 'rejected'" (click)="toViewing(request.id)" pButton icon="pi pi-globe"></button>
           <button *ngIf="request.status == 'cancelled'" (click)="confirmDelete($event, request.id)" pButton icon="pi pi-trash"></button>
         </td>
       </tr>
