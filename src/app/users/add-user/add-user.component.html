@@ -1,0 +1,97 @@
+<app-header>
+
+  <form #f="ngForm" (ngSubmit)="onSubmit(f)" novalidate>
+
+    <div class="flex flex-column align-content-start justify-content-center">
+
+      <h4 class="mt-1 mb-1">Login*</h4>
+      <div class="p-field">
+        <input ngModel name="login" #login="ngModel" required minlength="4" type="text" pInputText>
+        <div *ngIf="login.invalid && (login.dirty || login.touched)"
+             class="p-error">
+          <div *ngIf="login.errors?.minLength">
+            length < 4
+          </div>
+          <div *ngIf="login.errors?.required">
+            EMPTY
+          </div>
+        </div>
+      </div>
+
+      <h4 class="mt-1 mb-1">Password*</h4>
+      <div class="p-field">
+        <input ngModel name="password" #password="ngModel" required minlength="4" type="text" pInputText>
+        <div *ngIf="password.invalid && (password.dirty || password.touched)"
+             class="p-error">
+          <div *ngIf="password.errors?.minLength">
+            length < 4
+          </div>
+          <div *ngIf="password.errors?.required">
+            EMPTY
+          </div>
+        </div>
+      </div>
+
+
+      <h4 class="mt-1 mb-1">Name*</h4>
+      <div class="p-field">
+        <input ngModel name="name" #name="ngModel" required minlength="4" type="text" pInputText>
+        <div *ngIf="name.invalid && (name.dirty || name.touched)"
+             class="p-error">
+          <div *ngIf="name.errors?.minLength">
+            length < 4
+          </div>
+          <div *ngIf="name.errors?.required">
+            EMPTY
+          </div>
+        </div>
+      </div>
+
+      <h4 class="mt-1 mb-1">Surname*</h4>
+      <div class="p-field">
+        <input ngModel name="surname" #surname="ngModel" required minlength="4" type="text" pInputText>
+        <div *ngIf="surname.invalid && (surname.dirty || surname.touched)"
+             class="p-error">
+          <div *ngIf="surname.errors?.minLength">
+            length < 4
+          </div>
+          <div *ngIf="surname.errors?.required">
+            EMPTY
+          </div>
+        </div>
+      </div>
+
+      <h4 class="mt-1 mb-1">Middlename</h4>
+      <div class="p-field">
+        <input ngModel name="middlename" #middlename="ngModel" type="text" pInputText>
+      </div>
+
+      <h4 class="mt-1 mb-1">Email*</h4>
+      <div class="p-field">
+        <input ngModel [email]="true" name="email" #email="ngModel" required pInputText>
+        <div *ngIf="email.invalid && (email.dirty || email.touched)"
+             class="p-error">
+          <div *ngIf="email.errors?.email">
+            it's not email
+          </div>
+          <div *ngIf="email.errors?.required">
+            EMPTY
+          </div>
+        </div>
+      </div>
+
+      <h4 class="mt-1 mb-1">Role* </h4>
+      <div class="p-field">
+        <p-multiSelect (onChange)="checkEmailError()" name="roles" [options]="allRoles" [(ngModel)]="selectedRoles" defaultLabel="Select a role"
+                       required="true" optionLabel="name" display="chip"></p-multiSelect>
+        <div *ngIf="errorEmail" class="p-error">
+          The client cannot be a manager
+        </div>
+      </div>
+
+    </div>
+
+    <button [disabled]="!f.valid || errorEmail" class="mt-4 w-min" pButton label="add"></button>
+  </form>
+
+</app-header>

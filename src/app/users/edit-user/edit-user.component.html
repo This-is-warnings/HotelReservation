@@ -1,0 +1,120 @@
+<app-header>
+
+  <form #f="ngForm" (ngSubmit)="onSubmit(f)" novalidate>
+    <div class="flex flex-column align-content-start justify-content-center"> <!--https://i.imgur.com/FPNnL84.jpg)-->
+      <h4 class="mt-1 mb-1">Id</h4>
+      <div class="p-field ">
+        {{editUser.id}}
+      </div>
+
+      <h4 class="mt-1 mb-1">Login</h4>
+      <div class="p-field">
+        {{editUser.login}}
+      </div>
+
+      <h4 class="mt-1 mb-1">Password*</h4>
+      <div class="p-field">
+        <input
+          [(ngModel)]="editUser.password"
+          #password="ngModel"
+          name="password"
+          required
+          type="text"
+          minlength="4"
+          pInputText>
+
+        <div *ngIf="password.invalid && (password.dirty || password.touched)"
+             class="p-error">
+          <div *ngIf="password.errors?.minlength">
+            LENGTH < 4
+          </div>
+          <div *ngIf="password.errors?.required">
+            EMPTY
+          </div>
+        </div>
+      </div>
+
+      <h4 class="mt-1 mb-1">Name*</h4>
+      <div class="p-field">
+        <input
+          [(ngModel)]="editUser.name"
+          #name="ngModel"
+          name="name"
+          required
+          type="text"
+          pInputText>
+
+        <div *ngIf="name.invalid && (name.dirty || name.touched)"
+             class="p-error">
+          <div *ngIf="name.errors?.required">
+            EMPTY
+          </div>
+        </div>
+      </div>
+
+      <h4 class="mt-1 mb-1">Surname*</h4>
+      <div class="p-field">
+        <input
+          [(ngModel)]="editUser.surname"
+          #surname="ngModel"
+          name="surname"
+          required
+          type="text"
+          pInputText>
+
+        <div *ngIf="surname.invalid && (surname.dirty || surname.touched)"
+             class="p-error">
+          <div *ngIf="surname.errors?.required">
+            EMPTY
+          </div>
+        </div>
+      </div>
+
+      <h4 class="mt-1 mb-1">Middlename</h4>
+      <div class="p-field">
+        <input
+          [(ngModel)]="editUser.middlename"
+          #middlename="ngModel"
+          name="middlename"
+          type="text"
+          pInputText>
+
+      </div>
+
+      <h4 class="mt-1 mb-1">Email*</h4>
+      <div class="p-field">
+        <input
+          [(ngModel)]="editUser.email"
+          #email="ngModel"
+          name="email"
+          [email]="true"
+          required
+          type="email"
+          pInputText>
+        <div *ngIf="email.invalid && (email.dirty || email.touched)"
+             class="p-error">
+          <div *ngIf="email.errors?.email">
+            BAD EMAIL
+          </div>
+          <div *ngIf="email.errors?.required">
+            EMPTY
+          </div>
+        </div>
+      </div>
+
+      <h4 class="mt-1 mb-1">Role*</h4>
+      <div>
+        <p-multiSelect (onChange)="checkEmailError()" required="true" name="roles" [options]="allRoles"
+                       [(ngModel)]="editUser.roles" defaultLabel="Select a role"
+                       optionLabel="name" display="chip"></p-multiSelect>
+        <div *ngIf="errorEmail">
+          The client cannot be a manager
+        </div>
+      </div>
+
+
+      <button [disabled]="!f.valid || errorEmail" class="mt-4 w-min" pButton label="edit"></button>
+    </div>
+  </form>
+
+</app-header>
