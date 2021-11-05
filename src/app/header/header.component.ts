@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {MenuItem} from "primeng/api";
 import {Router} from "@angular/router";
+import {TokenStorageService} from "../services/token-storage.service";
 
 @Component({
   selector: 'app-header',
@@ -11,7 +12,7 @@ export class HeaderComponent implements OnInit {
 
   items: MenuItem[];
 
-  constructor(private router: Router) {
+  constructor(private router: Router, private tokenStorage: TokenStorageService) {
     this.items = [];
   }
 
@@ -78,6 +79,7 @@ export class HeaderComponent implements OnInit {
   }
 
   exit(): void {
+    this.tokenStorage.signOut();
     this.router.navigateByUrl('login');
   }
 }

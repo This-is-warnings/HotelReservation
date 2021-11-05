@@ -37,6 +37,8 @@ import {UsersComponent} from './users/users.component';
 import {AddUserComponent} from './users/add-user/add-user.component';
 import {EditUserComponent} from './users/edit-user/edit-user.component';
 import {AuthGuard} from "./guards/auth.guard";
+import {AdminGuard} from "./guards/admin.guard";
+import {ClientGuard} from "./guards/client.guard";
 
 
 @NgModule({
@@ -62,26 +64,24 @@ import {AuthGuard} from "./guards/auth.guard";
   imports: [
     BrowserModule,
     RouterModule.forRoot([
-      {
-        path: '', canActivate: [AuthGuard], children: [
-          {path:'', pathMatch: 'full', redirectTo: 'login' },
-          {path: 'login', component: LoginComponent},
-          {path: 'home', component: HomeComponent},
-          {path: 'cards', component: CardsComponent},
-          {path: 'requests', component: RequestsComponent},
-          {path: 'reservedRooms', component: ReservedRoomsComponent},
-          {path: 'cards/add', component: AddCardComponent},
-          {path: 'cards/:id/topUp', component: TopUpCardComponent},
-          {path: 'requests/add', component: AddRequestComponent},
-          {path: 'rooms', component: RoomsComponent},
-          {path: 'rooms/add', component: AddRoomComponent},
-          {path: 'rooms/edit/:id', component: EditRoomComponent},
-          {path: 'requests/:id/viewing', component: ViewingRequestComponent},
-          {path: 'users', component: UsersComponent},
-          {path: 'users/edit/:id', component: EditUserComponent},
-          {path: 'users/add', component: AddUserComponent}
-        ]
-      }
+
+          {path: '', redirectTo: '/login', pathMatch: 'full'},
+          {path: 'login', component: LoginComponent, canActivate: [AuthGuard]},
+          {path: 'home', component: HomeComponent,canActivate: [AuthGuard]},
+          {path: 'requests', component: RequestsComponent,canActivate: [AuthGuard]},
+          {path: 'reservedRooms', component: ReservedRoomsComponent,canActivate: [AuthGuard]},
+          {path: 'cards', component: CardsComponent,canActivate: [AuthGuard]},
+          {path: 'cards/add', component: AddCardComponent,canActivate: [AuthGuard]},
+          {path: 'cards/:id/topUp', component: TopUpCardComponent,canActivate: [AuthGuard]},
+          {path: 'requests/add', component: AddRequestComponent,canActivate: [AuthGuard]},
+          {path: 'rooms', component: RoomsComponent,canActivate: [AuthGuard]},
+          {path: 'rooms/add', component: AddRoomComponent,canActivate: [AuthGuard]},
+          {path: 'rooms/edit/:id', component: EditRoomComponent,canActivate: [AuthGuard]},
+          {path: 'requests/:id/viewing', component: ViewingRequestComponent,canActivate: [AuthGuard]},
+          {path: 'users', component: UsersComponent,canActivate: [AuthGuard, AdminGuard]},
+          {path: 'users/edit/:id', component: EditUserComponent,canActivate: [AuthGuard,AdminGuard]},
+          {path: 'users/add', component: AddUserComponent,canActivate: [AuthGuard,AdminGuard]}
+
     ]),
     FormsModule,
     ReactiveFormsModule,
@@ -100,7 +100,7 @@ import {AuthGuard} from "./guards/auth.guard";
     SelectButtonModule,
     DialogModule
   ],
-  providers: [AuthGuard, TokenStorageService, AuthService, CardsService, ConfirmationService, MessageService],
+  providers: [ClientGuard, AdminGuard, AuthGuard, TokenStorageService, AuthService, CardsService, ConfirmationService, MessageService],
   bootstrap: [AppComponent]
 })
 export class AppModule {
